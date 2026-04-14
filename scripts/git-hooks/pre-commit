@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Pre-commit hook: fast local gate before every commit.
+#
+# Runs rustfmt and clippy against the workspace. Tests are deferred to the
+# pre-push hook so commits stay under ~10s. Escape with `git commit --no-verify`
+# only for docs-only or hook-hostile commits — do not make it a habit.
+#
+# Installed via `just install-hooks` (symlinks into .git/hooks/).
+
+set -euo pipefail
+
+# Only run when Rust sources or Cargo metadata are staged.
+if ! git diff --cached --name-only --diff-filter=ACMR -z \
+    | tr '\0' '\n' \
+    | grep -qE '\.rs$|^Cargo\.(toml|lock)$|^rust-toolchain'; then
+    exit 0
+fi
+
+echo "pre-commit: cargo fmt --check"
+cargo fmt -- --check
+
+echo "pre-commit: cargo clippy -- -D warnings"
+cargo clippy -- -D warnings
+
+echo "pre-commit: ok"

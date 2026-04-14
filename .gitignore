@@ -1,0 +1,33 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# Runtime data
+/data/
+
+# Config with secrets
+config.toml
+!config.example.toml
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Load test reports
+load-test-report.html
+
+# OS
+.DS_Store
+Thumbs.db
+load-test-memory.csv
+load-test-report.html
+.claude/
+.codex
+fuzz/artifacts/
+fuzz/target/

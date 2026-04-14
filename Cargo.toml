@@ -1,0 +1,76 @@
+[package]
+name = "cmdock-server"
+version = "0.1.0"
+edition = "2021"
+description = "Rust task management server powered by TaskChampion with REST API and sync protocol"
+authors = ["Simon Inglis"]
+license = "AGPL-3.0-or-later"
+
+[dependencies]
+taskchampion = { version = "3.0", default-features = false, features = ["bundled", "storage-sqlite", "server-sync", "tls-native-roots"] }
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+tokio-rusqlite = "0.7"
+rusqlite = { version = "0.37", features = ["bundled", "backup"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tower-http = { version = "0.6", features = ["cors", "trace", "limit", "timeout"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "registry"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+reqwest = { version = "0.12", features = ["json"] }
+toml = "0.8"
+tower = "0.5"
+thiserror = "2"
+clap = { version = "4", features = ["derive", "env"] }
+anyhow = "1"
+sha2 = "0.10"
+async-trait = "0.1"
+utoipa = { version = "5", features = ["axum_extras", "chrono"] }
+utoipa-swagger-ui = { version = "9", features = ["axum"] }
+colored = "3"
+metrics = "0.24"
+metrics-exporter-prometheus = "0.18"
+metrics-process = "2"
+goose = "0.18"
+dashmap = "6"
+rand = "0.9"
+lru = "0.16.3"
+regex = "1"
+shell-words = "1"
+urlencoding = "2"
+hex = "0.4"
+ring = "0.17"
+subtle = "2"
+base64 = "0.22"
+garde = { version = "0.22", features = ["derive"] }
+qrcodegen = "1.8"
+libc = "0.2"
+
+# jemalloc: reduces sustained-load RSS 30-40% vs glibc malloc by avoiding arena
+# retention. Linux/macOS only; falls back to the system allocator on MSVC targets.
+# See the Gate 6 endurance investigation in release issue #76.
+[target.'cfg(not(target_env = "msvc"))'.dependencies]
+tikv-jemallocator = { version = "0.6", features = ["unprefixed_malloc_on_supported_platforms"] }
+
+[lib]
+name = "cmdock_server"
+path = "src/lib.rs"
+
+[[bin]]
+name = "cmdock-server"
+path = "src/main.rs"
+
+[[bin]]
+name = "test-harness"
+path = "src/bin/test_harness.rs"
+
+[[bin]]
+name = "load-test"
+path = "src/bin/load_test.rs"
+
+[dev-dependencies]
+axum-test = "19"
+tempfile = "3"
+futures = "0.3"
