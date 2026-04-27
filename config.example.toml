@@ -1,0 +1,37 @@
+[server]
+host = "0.0.0.0"
+port = 8080
+data_dir = "./data"
+
+# [tls]
+# cert = "/etc/ssl/certs/cmdock-server.crt"
+# key = "/etc/ssl/private/cmdock-server.key"
+
+# [admin]
+# http_token = "replace-with-a-long-random-operator-token"
+# `/admin/*` uses a separate operator bearer token and should not share
+# end-user API tokens.
+
+[llm]
+provider = "anthropic"
+model = "claude-haiku-4-5-20251001"
+api_key_env = "ANTHROPIC_API_KEY"
+summary_cache_ttl_secs = 300
+
+# [sync]
+# TaskChampion sync protocol is always enabled.
+# Register sync clients via: cmdock-server admin sync create <user-id>
+
+# [audit]
+# enabled = true
+# output = "stderr"           # "stderr" or file path (e.g. "/var/log/cmdock-audit.jsonl")
+
+# Environment variable overrides (12-factor app pattern):
+#   CMDOCK_HOST          → server.host
+#   CMDOCK_PORT          → server.port
+#   CMDOCK_DATA_DIR      → server.data_dir
+#   CMDOCK_ADMIN_TOKEN   → admin.http_token
+#   CMDOCK_AUDIT_ENABLED → audit.enabled ("true"/"1"/"yes" = on)
+#   CMDOCK_AUDIT_OUTPUT  → audit.output
+#   CMDOCK_LOG_LEVEL     → app log level ("debug", "trace", etc.)
+#   RUST_LOG             → full tracing filter (takes precedence over CMDOCK_LOG_LEVEL)

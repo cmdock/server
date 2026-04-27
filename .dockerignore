@@ -1,0 +1,12 @@
+target/
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.git/
+.gitignore
+load-test-report.html
+config.toml
+.env
+.env.local
+.env.*.local

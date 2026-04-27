@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>cmdock Operator Console</title>
+    <link rel="stylesheet" href="/admin/console/style.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">cmdock server</p>
+          <h1>Operator Console</h1>
+          <p class="lede">
+            Trusted operator surface for diagnostics, runtime policy, sync
+            identity, and per-user device lifecycle.
+          </p>
+        </div>
+        <div class="masthead-meta">
+          <span class="badge">operator ingress only</span>
+          <span class="badge badge-muted">token held in browser session</span>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="card">
+          <h2>Session</h2>
+          <p class="muted">
+            Enter the environment-scoped operator token. It is stored in
+            <code>sessionStorage</code> only and cleared when the browser
+            session ends.
+          </p>
+          <form id="token-form" class="stack">
+            <label class="field">
+              <span>Operator token</span>
+              <input
+                id="operator-token"
+                name="operator-token"
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Paste CMDOCK_ADMIN_TOKEN"
+              />
+            </label>
+            <div class="actions">
+              <button type="submit">Save Token</button>
+              <button id="clear-token" type="button" class="secondary">
+                Clear
+              </button>
+              <button id="check-status" type="button" class="ghost">
+                Check /admin/status
+              </button>
+            </div>
+          </form>
+          <p id="session-status" class="status-line muted">
+            No operator token in this browser session.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>Server Status</h2>
+          <p class="muted">
+            Live process diagnostics from <code>/admin/status</code>.
+          </p>
+          <pre id="server-status" class="output">No data loaded yet.</pre>
+        </section>
+
+        <section class="card card-wide">
+          <h2>User Lookup</h2>
+          <p class="muted">
+            Inspect one user at a time. This first slice focuses on existing
+            operator reads and a small runtime-policy write path.
+          </p>
+          <form id="user-form" class="stack">
+            <label class="field">
+              <span>User ID</span>
+              <input
+                id="user-id"
+                name="user-id"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Paste user UUID"
+              />
+            </label>
+            <div class="actions">
+              <button type="submit">Load User</button>
+              <button id="refresh-user" type="button" class="secondary">
+                Refresh
+              </button>
+            </div>
+          </form>
+
+          <div class="panel-grid">
+            <article class="panel">
+              <div class="panel-header">
+                <h3>Stats</h3>
+                <button data-load="stats" type="button" class="ghost">Reload</button>
+              </div>
+              <pre id="user-stats" class="output">No user loaded.</pre>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h3>Sync Identity</h3>
+                <div class="actions compact">
+                  <button data-load="sync-identity" type="button" class="ghost">Reload</button>
+                  <button id="ensure-sync-identity" type="button" class="secondary">Ensure</button>
+                </div>
+              </div>
+              <pre id="user-sync-identity" class="output">No user loaded.</pre>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h3>Runtime Policy</h3>
+                <button data-load="runtime-policy" type="button" class="ghost">Reload</button>
+              </div>
+              <form id="runtime-policy-form" class="stack policy-form">
+                <label class="field">
+                  <span>Policy version</span>
+                  <input
+                    id="policy-version"
+                    name="policy-version"
+                    type="text"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="operator-console-v1"
+                  />
+                </label>
+                <div class="field-row">
+                  <label class="field">
+                    <span>Runtime access</span>
+                    <select id="runtime-access" name="runtime-access">
+                      <option value="allow">allow</option>
+                      <option value="block">block</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Delete action</span>
+                    <select id="delete-action" name="delete-action">
+                      <option value="forbid">forbid</option>
+                      <option value="allow">allow</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="actions">
+                  <button type="submit">Apply Policy</button>
+                </div>
+              </form>
+              <pre id="user-runtime-policy" class="output">No user loaded.</pre>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h3>Devices</h3>
+                <button data-load="devices" type="button" class="ghost">Reload</button>
+              </div>
+              <pre id="user-devices" class="output">No user loaded.</pre>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/admin/console/app.js" defer></script>
+  </body>
+</html>
