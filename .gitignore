@@ -1,0 +1,52 @@
+# Build artifacts
+/target/
+**/*.rs.bk
+
+# Runtime data
+/data/
+
+# Config with secrets
+config.toml
+!config.example.toml
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Load test reports
+load-test-report.html
+
+# OS
+.DS_Store
+Thumbs.db
+load-test-memory.csv
+load-test-summary.json
+load-test-report.html
+.claude/*
+!.claude/rules/
+.codex
+fuzz/artifacts/
+fuzz/target/
+
+# Tooling artifacts
+.playwright-mcp/
+snapshots/
+.pi/
+
+# Local MCP server config — contains a Redis credential and absolute local
+# paths; this repo mirrors to public GitHub, so it must never be committed.
+.mcp.json
+
+# Scratch staging for the CLAUDE.md "## Cmdock Bus" section (already lives in
+# CLAUDE.md — this is a working copy, not source).
+CLAUDE.bus-section.md
+
+# Local qualification run outputs (machine-generated; budgets that matter live
+# in scripts/release_qualification_budgets.json).
+qualification-runs/

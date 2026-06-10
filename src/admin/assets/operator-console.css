@@ -1,0 +1,271 @@
+:root {
+  --font-sans: "Avenir Next", "Segoe UI Variable", "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+  --bg: #f2efe8;
+  --panel: rgba(255, 252, 247, 0.9);
+  --panel-strong: #fffdf9;
+  --ink: #152018;
+  --muted: #5d6a60;
+  --line: rgba(21, 32, 24, 0.12);
+  --accent: #0f6d52;
+  --accent-strong: #094432;
+  --warn: #9a5528;
+  --shadow: 0 24px 60px rgba(19, 27, 21, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(15, 109, 82, 0.14), transparent 30rem),
+    radial-gradient(circle at top right, rgba(154, 85, 40, 0.12), transparent 25rem),
+    linear-gradient(180deg, #f5f2ea 0%, #ede8df 100%);
+}
+
+code,
+pre,
+input,
+select,
+button {
+  font-family: var(--font-mono);
+}
+
+.shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: end;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(255, 253, 249, 0.95), rgba(245, 239, 231, 0.92));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+h1,
+h2,
+h3,
+.lede,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 0.95;
+}
+
+.lede {
+  margin-top: 0.7rem;
+  max-width: 44rem;
+  color: var(--muted);
+}
+
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: end;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 109, 82, 0.08);
+  border: 1px solid rgba(15, 109, 82, 0.16);
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+}
+
+.badge-muted {
+  background: rgba(21, 32, 24, 0.05);
+  border-color: rgba(21, 32, 24, 0.1);
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card,
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 1.35rem;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.card {
+  padding: 1.2rem;
+}
+
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.panel {
+  padding: 1rem;
+  background: var(--panel-strong);
+}
+
+.panel-header,
+.actions,
+.field-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.panel-header {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.actions {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actions.compact {
+  gap: 0.5rem;
+}
+
+.stack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field > span {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+input,
+select,
+button {
+  width: 100%;
+  border: 1px solid rgba(21, 32, 24, 0.18);
+  border-radius: 0.9rem;
+  font-size: 0.95rem;
+}
+
+input,
+select {
+  padding: 0.85rem 0.95rem;
+  background: #fffcf7;
+  color: var(--ink);
+}
+
+button {
+  width: auto;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  background: var(--accent);
+  color: #f7fcfa;
+  border-color: transparent;
+}
+
+button:hover {
+  background: var(--accent-strong);
+}
+
+button.secondary {
+  background: rgba(15, 109, 82, 0.08);
+  color: var(--accent-strong);
+  border-color: rgba(15, 109, 82, 0.18);
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--muted);
+  border-color: rgba(21, 32, 24, 0.12);
+}
+
+.muted,
+.status-line {
+  color: var(--muted);
+}
+
+.status-line {
+  min-height: 1.25rem;
+}
+
+.status-line.error {
+  color: var(--warn);
+}
+
+.output {
+  margin: 0;
+  padding: 0.95rem;
+  min-height: 10rem;
+  overflow: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(21, 32, 24, 0.08);
+  background: #fcfaf5;
+  color: #243126;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 860px) {
+  .masthead,
+  .layout,
+  .panel-grid,
+  .field-row {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .masthead {
+    align-items: start;
+  }
+
+  .masthead-meta {
+    justify-content: start;
+  }
+}

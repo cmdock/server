@@ -1,0 +1,18 @@
+# Publication surface check allowlist.
+#
+# Each line is one of:
+#   path:<relpath>                           — skip this file entirely
+#   pattern:<pattern_name>                   — disable this pattern globally
+#   hit:<relpath>:<line>:<pattern_name>      — suppress one exact hit
+#
+# Blank lines and lines starting with '#' are ignored.
+#
+# Prefer 'hit:' over broader forms. The more surgical the suppression,
+# the more likely the check catches a regression when the surrounding
+# content changes.
+
+# scripts/prepare-public-branch.sh references CLAUDE.md by name because
+# its purpose is to exclude CLAUDE.md from the public branch. That
+# reference is load-bearing — if it disappears, the public branch would
+# start shipping CLAUDE.md. Allow the literal string reference.
+hit:scripts/prepare-public-branch.sh:66:claude_md

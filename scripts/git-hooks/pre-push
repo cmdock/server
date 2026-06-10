@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Pre-push hook: full local gate before pushing to a remote.
+#
+# Runs the same pipeline as `just check`: rustfmt, clippy, and the whole test
+# suite. Slower (~30-60s) but catches anything the pre-commit hook deferred.
+# Escape with `git push --no-verify` only for emergency pushes — do not make
+# it a habit.
+#
+# Installed via `just install-hooks` (symlinks into .git/hooks/).
+
+set -euo pipefail
+
+echo "pre-push: just check"
+just check
+
+echo "pre-push: ok"

@@ -1,0 +1,12 @@
+# MergedSyncGateway TaskChampion history codec review acknowledgement.
+#
+# scripts/check-merged-sync-codec-gate.sh compares this version with the
+# resolved taskchampion crate in Cargo.lock. If taskchampion changes, regenerate
+# the generated fixtures via:
+#   cargo test merged_sync_gateway::codec::tests::regenerate_taskchampion_history_fixtures --lib -- --ignored --exact
+# Then review the decoded operation corpus and update this acknowledgement in
+# the same commit.
+
+taskchampion_version = "3.0.1"
+reviewed_at = "2026-05-09"
+review_note = "Phase 2 corpus generated from public Replica<InMemoryStorage>/Task APIs and replica.sync() capture server."

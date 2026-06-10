@@ -1,0 +1,15 @@
+[toolchain]
+# Pinned to an exact stable release so CI cache keys do not invalidate on
+# every six-week stable cadence and so the runner reproduces local builds
+# byte-for-byte. Bumping is a deliberate commit — change this file, run
+# `just check`, and commit the upgrade in its own PR.
+#
+# 1.88.0 is the version the Gate 4–6 release qualification was validated
+# against (jemalloc, clippy lint state, fuzz, perf budgets). See release
+# issue #76 for the validation history.
+channel = "1.88.0"
+
+# `minimal` keeps the toolchain install small on the CI runner. rustfmt and
+# clippy are added explicitly because both are required by `just check`.
+profile = "minimal"
+components = ["rustfmt", "clippy"]

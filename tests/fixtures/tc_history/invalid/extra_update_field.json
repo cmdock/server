@@ -1,0 +1,13 @@
+{
+  "operations": [
+    {
+      "Update": {
+        "uuid": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+        "property": "description",
+        "value": "hello",
+        "timestamp": "2026-05-09T01:02:03Z",
+        "extra": "nope"
+      }
+    }
+  ]
+}

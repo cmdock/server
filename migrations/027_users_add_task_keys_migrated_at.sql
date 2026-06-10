@@ -1,0 +1,22 @@
+-- Per-account-lazy task-key backfill state per `task-write-contract.md`
+-- § Task Keys (cmdock/architecture#34, commit f2109ef).
+--
+-- Phase 4 of server#130. Existing tasks (created before the feature
+-- shipped) need allocation rows + the `cmdock_key` UDA. The migration is
+-- per-account-lazy: triggered on the first server access for each user
+-- after Phase 4 ships. `task_keys_migrated_at` is NULL until backfill
+-- completes; an ISO-8601 UTC timestamp once the user's tasks all carry
+-- both an allocation row and the TC-side UDA.
+--
+-- Wire-vs-cache nullability: Phase 2 ships `TaskItem.key` as
+-- `Option<String>` and tolerates `None` for pre-feature tasks. Phase 4's
+-- synchronous-on-first-access backfill closes the wire-`None` window
+-- under a per-user mutation lock (see `RuntimeRecoveryCoordinator::
+-- task_mutation_lock`).
+--
+-- Backfill runs only once per user. Re-checking the column under the
+-- per-user mutex (double-checked locking) prevents two concurrent first
+-- accesses from both running Phase A. A short-lived in-memory
+-- `migration_status_cache` on `RuntimeRecoveryCoordinator` makes the
+-- common "already migrated" path lock-free.
+ALTER TABLE users ADD COLUMN task_keys_migrated_at TEXT;
