@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-06-11
+
 ### Fixed
 - **Webhook delivery no longer blocks the task-mutation HTTP response (#146/#149).**
   Webhook delivery retries run inline (1s/10s/60s), so a slow or dead endpoint
